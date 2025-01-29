@@ -52,7 +52,7 @@ jobs:
       
       - name: Trivy scan
         run: |
-          docker run --rm -v /var/run/docker.sock:/var/run/docker.sock aquasec/trivy:latest image ${{ secrets.DOCKERHUB_USERNAME }}/gh_action-swiggy-app:${{ github.run_id }} --severity HIGH,CRITICAL --format json > trivy-report.json
+          docker run --rm -v /var/run/docker.sock:/var/run/docker.sock aquasec/trivy:latest image gh_action-swiggy-app:${{ github.run_id }} --severity HIGH,CRITICAL --format json > trivy-report.json
 
       - name: Docker tag image as latest
         run: |
