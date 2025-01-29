@@ -49,5 +49,9 @@ jobs:
           context: .
           push: false
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/gh_action-swiggy-app:${{ github.run_id }}
+      
+      - name: Trivy secrets.SONAR_TOKEN
+        run: |
+          docker run --rm -v /var/run/docker.sock:/var/run/docker:sock aquasec/trivy:latest image ${{ secrets.DOCKERHUB_USERNAME }}/gh_action-swiggy-app:${{ github.run_id }}
 
       # - run: echo "🍏 This job's status is ${{ job.status }}."
