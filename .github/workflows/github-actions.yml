@@ -48,19 +48,18 @@ jobs:
         with:
           context: .
           push: false
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/gh_action-swiggy-app:${{ github.run_id }}
+          tags: gh_action-swiggy-app:${{ github.run_id }} 
       
       - name: Trivy scan
         run: |
           docker run --rm -v /var/run/docker.sock:/var/run/docker.sock aquasec/trivy:latest image ${{ secrets.DOCKERHUB_USERNAME }}/gh_action-swiggy-app:${{ github.run_id }} --severity HIGH,CRITICAL --format json > trivy-report.json
 
-      - name: Docker push
-        uses: docker/build-push-action@v6
-        with:
-          context: .
-          push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/gh_action-swiggy-app:${{ github.run_id }}
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - name: Docker tag image as latest
+        run: |
+          docker tag gh_action-swiggy-app:${{ github.run_id }} ${{ secrets.DOCKERHUB_USERNAME }}/gh_action-swiggy-app:latest
+
+      - name: Docker push latest image
+        run: |
+          docker push ${{ secrets.DOCKERHUB_USERNAME }}/gh_action-swiggy-app:latest
 
       # - run: echo "🍏 This job's status is ${{ job.status }}."
