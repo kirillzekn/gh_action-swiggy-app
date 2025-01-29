@@ -44,11 +44,8 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       - name: Docker Build
-        uses: docker/build-push-action@v6
-        with:
-          context: .
-          push: false
-          tags: gh_action-swiggy-app:${{ github.run_id }} 
+        run: |
+          docker build -t gh_action-swiggy-app:${{ github.run_id }} .
       
       - name: Trivy scan
         run: |
