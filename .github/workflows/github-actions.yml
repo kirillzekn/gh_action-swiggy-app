@@ -1,6 +1,13 @@
 name: My GitHub Action
+
 run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
+
 on: workflow_dispatch
+
+permissions:
+  id-token: write
+  contents: read
+
 jobs:
   Explore-GitHub-Actions:
     runs-on: ubuntu-latest
@@ -74,3 +81,8 @@ jobs:
           azcliversion: latest
           inlineScript: |
             az account show
+      
+      - name: Create AKS in Azure
+        run: |
+          az group create --name $MY_RESOURCE_GROUP_NAME --location $REGION
+          az aks create --resource-group $MY_RESOURCE_GROUP_NAME --name $MY_CLUSTER_NAME --node-count 1 --generate-ssh-keys --tier Free --os-sku Ubuntu 
