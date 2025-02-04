@@ -106,10 +106,10 @@ jobs:
                    
       - name: setup k8s profile
         run: |
-          az aks get-credentials --admin --name $MY_CLUSTER_NAME --overwrite-existing --resource-group $MY_RESOURCE_GROUP_NAME
+          az aks get-credentials --admin --name $MY_CLUSTER_NAME
           ls -ltr ./.kube/config
           cat ./.kube/config
-
+          
       - name: Deploy to AKS
         run: |
           kubectl apply -f k8s/deployment.yaml
