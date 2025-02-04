@@ -19,4 +19,4 @@ spec:
       - name: swiggy-app
         image: zekn/gh_action-swiggy-app:latest
         ports:
-        - containerPort: 80
+        - containerPort: 3000
