@@ -106,7 +106,9 @@ jobs:
                    
       - name: setup k8s profile
         run: |
-          az aks get-credentials --admin --name $MY_CLUSTER_NAME
+          export MY_RESOURCE_GROUP_NAME="zekn-aks-rg"
+          export MY_CLUSTER_NAME="zekn-aks-cluster"
+          az aks get-credentials --admin --name $MY_CLUSTER_NAME --overwrite-existing --resource-group $MY_RESOURCE_GROUP_NAME
           ls -ltr ./.kube/config
           cat ./.kube/config
           
